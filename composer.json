@@ -9,6 +9,9 @@
 			"email": "betsuno.git@yandex.ru"
 		}
 	],
+	"autoload": {
+		"classmap": ["JsonBehavior.php"]
+	},
 	"license": "MIT",
 	"require": {
 		"yiisoft/yii2": "^2.0"
