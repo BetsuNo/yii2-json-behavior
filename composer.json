@@ -2,7 +2,7 @@
 	"name": "betsuno/yii2-json-behavior",
 	"description": "JSON behavior for Yii2 framework",
 	"type": "library",
-	"version": "0.2",
+	"version": "0.1",
 	"authors": [
 		{
 			"name": "BetsuNo",
