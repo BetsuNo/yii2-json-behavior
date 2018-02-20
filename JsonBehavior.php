@@ -14,6 +14,19 @@ class JsonBehavior extends Behavior
 	public $attributeName;
 	public $mapper;
 
+	protected static $newVersionSupport;
+
+	/**
+	 * @inheritdoc
+	 */
+	public function init()
+	{
+		if (static::$newVersionSupport === null) {
+			static::$newVersionSupport = class_exists('\yii\db\JsonExpression');
+		}
+		parent::init();
+	}
+
 	/**
 	 * @return array
 	 */
@@ -60,14 +73,18 @@ class JsonBehavior extends Behavior
 
 	public function export()
 	{
-		if (!is_string($this->get())) {
+		if (!static::$newVersionSupport && !is_string($this->get())) {
 			$this->set(json_encode($this->get()));
 		}
 	}
 
 	public function import()
 	{
-		$data = json_decode($this->get(), true);
+		$data = $this->get();
+		if (!static::$newVersionSupport) {
+			$data = json_decode($data, true);
+		}
+
 		if (!empty($this->mapper)) {
 			if (is_callable($this->mapper)) {
 				$data = call_user_func($this->mapper, $data);
